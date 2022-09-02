@@ -1300,7 +1300,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &458085710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5466,38 +5466,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3056225214092575238, guid: 3555fdc9faaca5c49b6ac6e752c2f483, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300004, guid: ccb151eac4280a94c95575e12e56865a, type: 3}
-    - target: {fileID: 3056225214092575238, guid: 3555fdc9faaca5c49b6ac6e752c2f483, type: 3}
-      propertyPath: m_UseCustomVertexStreams
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3056225214092575259, guid: 3555fdc9faaca5c49b6ac6e752c2f483, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8971279941434494354, guid: 3555fdc9faaca5c49b6ac6e752c2f483, type: 3}
       propertyPath: m_Name
       value: Angel
-      objectReference: {fileID: 0}
-    - target: {fileID: 8971279941434494354, guid: 3555fdc9faaca5c49b6ac6e752c2f483, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8971279941434494355, guid: 3555fdc9faaca5c49b6ac6e752c2f483, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1058263892571988762}
-    - target: {fileID: 8971279941434494355, guid: 3555fdc9faaca5c49b6ac6e752c2f483, type: 3}
-      propertyPath: deathVFX
-      value: 
-      objectReference: {fileID: 4521860951476451460, guid: 5555ef32a2f2b324880314ee851a1b4c, type: 3}
-    - target: {fileID: 8971279941434494355, guid: 3555fdc9faaca5c49b6ac6e752c2f483, type: 3}
-      propertyPath: durationOfExplosion
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8971279941434494359, guid: 3555fdc9faaca5c49b6ac6e752c2f483, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -5508,7 +5484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8971279941434494359, guid: 3555fdc9faaca5c49b6ac6e752c2f483, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.42
+      value: 7.55
       objectReference: {fileID: 0}
     - target: {fileID: 8971279941434494359, guid: 3555fdc9faaca5c49b6ac6e752c2f483, type: 3}
       propertyPath: m_LocalPosition.z
