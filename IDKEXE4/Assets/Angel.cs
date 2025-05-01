@@ -9,7 +9,7 @@ public class Angel : MonoBehaviour
     public GameObject target;
     public Transform bibliclyAccurateAimer;
     public Transform bibliclyAccurateAimerUp;
-    public float moveSpeed = 10;
+    public float moveSpeed = 4;
     public float rotationalDamp = 0.5f;
     public float castDist = 20;
     public float castOff = 2.5f;
@@ -28,27 +28,27 @@ public class Angel : MonoBehaviour
     public AudioClip hum;
     public AudioClip b;
     public AudioClip c;
-    public AudioClip Bwah;
-    public AudioClip pwah;
+    public AudioClip lazerStartSFX;
+    public AudioClip laserHummingSFX;
     [SerializeField] [Range(0, 1)] public float yellVolume = 0.75f;
-    [SerializeField][Range(0, 1)] public float bbwah = 0.75f;
+    [SerializeField][Range(0, 1)] public float laserVol = 0.75f;
     public Rigidbody rb;
     public ParticleSystem ps;
     public ParticleSystem thruster;
     public ParticleSystem suck;
-    public float tim;
+    public float timeUntilLazerHumSFX;
     public float angels;
     public  bool mad;
     public static int angry;
     public float temper;
     public float charge;
-    public bool llock;
+    public bool laserLock;
     public ParticleSystemForceField grav;
     public int AIdentity;
     public bool blah;
-    public float hh;
-    public bool hhclick;
-    public float hlimit;
+    public float heat;
+    public bool overHeat;
+    public float heatLimit;
     public ParticleSystem glow;
     public float humc;
 
@@ -117,11 +117,11 @@ public class Angel : MonoBehaviour
         
     }
     private void AttackLogic(float distt)
-    {if (hhclick == true)
+    {if (overHeat == true)
         {
-            hh -= Time.deltaTime;
+            heat -= Time.deltaTime;
             charge = 0;
-            tim = 1.49f;
+            timeUntilLazerHumSFX = 1.49f;
             thruster = ps;
            var emission = thruster.emission;
             emission.rateOverTime = 0;
@@ -129,10 +129,10 @@ public class Angel : MonoBehaviour
             glowrate.rateOverTime = 0;
             var sucklim = suck.emission;
            sucklim.rateOverTime = 0;
-            llock = false;
-            if ( hh <=0)
+            laserLock = false;
+            if ( heat <=0)
             {
-                hhclick = false;
+                overHeat = false;
             }
             var suckrate = suck.emission;
             suckrate.rateOverTime = 0;
@@ -140,36 +140,36 @@ public class Angel : MonoBehaviour
         }
         if (distt >= attackDist /rng)
         {
-            rb.drag = 3 -(0.5f*rng);
+            rb.drag = 3 -(0.3f*rng);
             thruster = ps;
             var emission = thruster.emission;
             temper = 0;
-            if (llock == true && charge >= 0)
+            if (laserLock == true && charge >= 0)
             {
                 charge -= Time.deltaTime;
             }
             else
             {
-                llock = false;
-                tim = 1.49f;
+                laserLock = false;
+                timeUntilLazerHumSFX = 1.49f;
             }
-            if (hh >= hlimit)
+            if (heat >= heatLimit)
             {
-                hhclick = true;
+                overHeat = true;
             }
-            if (llock == true && hhclick == false)
+            if (laserLock == true && overHeat == false)
             {
-                hh += Time.deltaTime;
+                heat += Time.deltaTime;
                 thruster = ps;
                 var glowrate = glow.emission.rateOverTime;
                 glowrate = 3;
                 emission.rateOverTime = 200;
-                tim += Time.deltaTime;
-                if (tim >= 1.5f)
+                timeUntilLazerHumSFX += Time.deltaTime;
+                if (timeUntilLazerHumSFX >= 0.5)
                 {
-                    audiosource.PlayOneShot(pwah, bbwah);
+                    audiosource.PlayOneShot(laserHummingSFX, laserVol);
 
-                    tim = 0;
+                    timeUntilLazerHumSFX = 0;
                 }
             }
             else
@@ -187,24 +187,24 @@ public class Angel : MonoBehaviour
         {
             var glowrate = glow.emission;
             glowrate.rateOverTime = 2;
-            if (hh >= hlimit)
+            if (heat >= heatLimit)
             {
-                hhclick = true;
+                overHeat = true;
             }
-            if (llock == true && hhclick == false)
+            if (laserLock == true && overHeat == false)
             {
-                hh += Time.deltaTime;
+                heat += Time.deltaTime;
                 thruster = ps;
                 var emission = thruster.emission;
                 emission.rateOverTime = 200;
               
                 glowrate.rateOverTime = 5;
-                tim += Time.deltaTime;
-                if (tim >= 1.5f)
+                timeUntilLazerHumSFX += Time.deltaTime;
+                if (timeUntilLazerHumSFX >= 1.5f)
                 {
-                    audiosource.PlayOneShot(pwah, bbwah);
+                    audiosource.PlayOneShot(laserHummingSFX, laserVol);
 
-                    tim = 0;
+                    timeUntilLazerHumSFX = 0;
                 }
             }
 
@@ -214,11 +214,11 @@ public class Angel : MonoBehaviour
                 if (temper >= 2)
                 {
 
-                    if (llock == false && charge <= 2)
+                    if (laserLock == false && charge <= 2)
                     {
                         if (blah == false && charge >= 0.9f)
                         {
-                            audiosource.PlayOneShot(Bwah, bbwah);
+                            audiosource.PlayOneShot(lazerStartSFX, laserVol);
                             blah = true;
                         }
 
@@ -231,7 +231,7 @@ public class Angel : MonoBehaviour
                     {
                         var suckrate = suck.emission;
                         suckrate.rateOverTime = 30;
-                        llock = true;
+                        laserLock = true;
                         blah = false;
                         grav.gravity = -1;
                     }
@@ -240,7 +240,7 @@ public class Angel : MonoBehaviour
             }
             else
             {
-                tim = 1.49f;
+                timeUntilLazerHumSFX = 1.49f;
                 thruster = ps;
                 var emission = thruster.emission;
                 emission.rateOverTime = 0;
@@ -323,14 +323,7 @@ public class Angel : MonoBehaviour
     }
     void Move()
     {
-        if(uncomfy == false)
-        {
-            GetComponent<Rigidbody>().AddForce(bibliclyAccurateAimer.transform.position - transform.position);
-        }
-        if (uncomfy == true)
-        {
-            GetComponent<Rigidbody>().AddForce(bibliclyAccurateAimerUp.transform.position - transform.position);
-        }
+       
     }
     void PathFinding()
     {
@@ -339,45 +332,77 @@ public class Angel : MonoBehaviour
         RaycastHit hitu;
         RaycastHit hitd;
         RaycastHit hitf;
+
+        RaycastHit seek;
+
         Ray right = new Ray(transform.position, transform.right);
         Ray left = new Ray(transform.position, -transform.right);
         Ray up = new Ray(transform.position, transform.up);
         Ray down = new Ray(transform.position, -transform.up);
         Ray forward = new Ray(transform.position, transform.forward);
+        Ray backward = new Ray(transform.position, -transform.forward);
+
+        Ray seeker = new Ray(transform.position, transform.forward);
 
         // Debug.DrawRay()
 
 
+        Physics.Raycast(seeker, out seek, 100);
 
 
-        if (Physics.Raycast(right, out hitr, detectRange) || Physics.Raycast(forward, out hitf, detectRange) || Physics.Raycast(left, out hitl, detectRange) || Physics.Raycast(up, out hitu, detectRange) || Physics.Raycast(down, out hitd, detectRange))
+        if (Physics.Raycast(forward, out hitf, detectRange))
         {
-           
-
-            uncomfy = true;
-
-            if (Physics.Raycast(forward, out hitf, detectRange))
+            if (hitf.collider != null)
             {
-                if (hitf.collider != null)
-                {
-                    Debug.Log(hitf.collider.gameObject.name);
-
-                }
+                Debug.Log("Forward");
+                GetComponent<Rigidbody>().AddForce(-transform.forward*2 * moveSpeed);
             }
-          
+        }
+        if (Physics.Raycast(right, out hitr, detectRange))
+        {
+            if (hitr.collider != null)
+            {
+                Debug.Log("right");
+                GetComponent<Rigidbody>().AddForce(-transform.right * moveSpeed);
+            }
+        }
+        if (Physics.Raycast(left, out hitl, detectRange))
+        {
+            if (hitl.collider != null)
+            {
+                Debug.Log("left");
+                GetComponent<Rigidbody>().AddForce(transform.right * moveSpeed);
+            }
+        }
+          if (Physics.Raycast(down, out hitd, detectRange))
+       {
+            if (hitd.collider != null)
+            {
+                Debug.Log("down");
+                GetComponent<Rigidbody>().AddForce(transform.up * moveSpeed);
+            }
+       }
+        if (Physics.Raycast(up, out hitu, detectRange))
+        {
+            if (hitu.collider != null)
+            {
+                 Debug.Log("Up");
+                GetComponent<Rigidbody>().AddForce(-transform.up * moveSpeed);
+            }
         }
         else
         {
-            uncomfy = false;
+            GetComponent<Rigidbody>().AddForce(transform.forward * moveSpeed);
+            
         }
     }
     public void OnTriggerStay(Collider other)
     {
-        Debug.Log(other.gameObject.name + "apple");
-        if (other.gameObject.GetComponentInChildren<Angel>() != null)
-        {
-            Vector3 oa = other.transform.position;
-            GetComponent<Rigidbody>().AddForce(oa + transform.position);
+      
+        // Debug.Log(other.gameObject.name + "apple");
+      
+        {  
+            GetComponent<Rigidbody>().AddForce(other.transform.position);
             Debug.Log("No");
         }
       

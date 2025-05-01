@@ -13,7 +13,6 @@ public class Heaven : MonoBehaviour
     void Start()
     {
        
-        Angel.rage = 1;
         asn = 1;
     }
 
@@ -22,28 +21,19 @@ public class Heaven : MonoBehaviour
     {
        angels = FindObjectsOfType<Angel>().Length;
 
-        countdown -= Time.deltaTime;
+       
         if (angels < asn)
         {
-            if(countdown <=0)
+            countdown -= Time.deltaTime;
+            if (countdown <=0)
             {
                 Instantiate(Angle, transform.position, transform.rotation);
-                countdown = 6;
+                countdown = 1;
             }
           
         }
-        if (Angel.rage == 1 || Angel.rage == 2 || Angel.rage == 3)
-        {
-            asn = 1;
-        }
-        if (Angel.rage == 4|| Angel.rage == 5 || Angel.rage == 6)
-        {
-            asn = 2;
-        }
-        if (Angel.rage == 7|| Angel.rage == 8 || Angel.rage == 9)
-        {
-            asn = 3;
-        }
+        asn = Angel.rage;
+        
 
     }
 }

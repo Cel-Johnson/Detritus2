@@ -5466,6 +5466,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 717233490, guid: 3555fdc9faaca5c49b6ac6e752c2f483, type: 3}
+      propertyPath: m_Parameters.m_StartRange
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8971279941434494354, guid: 3555fdc9faaca5c49b6ac6e752c2f483, type: 3}
       propertyPath: m_Name
       value: Angel
